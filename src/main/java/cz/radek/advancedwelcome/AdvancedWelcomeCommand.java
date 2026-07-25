@@ -25,15 +25,74 @@ public final class AdvancedWelcomeCommand implements CommandExecutor {
 
         // /advancedwelcome
         if (args.length == 0) {
+
             sender.sendMessage(
                     miniMessage.deserialize(
-                            "<gold><bold>AdvancedWelcome</bold></gold> <gray>v1.0.0"
+                            "<gold><bold>AdvancedWelcome</bold></gold> <gray>v"
+                                    + plugin.getPluginMeta().getVersion()
                     )
             );
 
             sender.sendMessage(
                     miniMessage.deserialize(
-                            "<yellow>/advancedwelcome reload <gray>- Reload configu"
+                            "<yellow>/advancedwelcome info <gray>- Informace o pluginu"
+                    )
+            );
+
+            if (sender.hasPermission("advancedwelcome.reload")) {
+                sender.sendMessage(
+                        miniMessage.deserialize(
+                                "<yellow>/advancedwelcome reload <gray>- Reload configu"
+                        )
+                );
+            }
+
+            return true;
+        }
+
+        // /advancedwelcome info
+        if (args[0].equalsIgnoreCase("info")) {
+
+            sender.sendMessage(
+                    miniMessage.deserialize(
+                            "<dark_gray>--------------------------------"
+                    )
+            );
+
+            sender.sendMessage(
+                    miniMessage.deserialize(
+                            "<gold><bold>AdvancedWelcome</bold></gold>"
+                    )
+            );
+
+            sender.sendMessage(
+                    miniMessage.deserialize(
+                            "<gray>Verze: <yellow>"
+                                    + plugin.getPluginMeta().getVersion()
+                    )
+            );
+
+            sender.sendMessage(
+                    miniMessage.deserialize(
+                            "<gray>Autor: <yellow>Radek"
+                    )
+            );
+
+            sender.sendMessage(
+                    miniMessage.deserialize(
+                            "<gray>Platforma: <yellow>Paper"
+                    )
+            );
+
+            sender.sendMessage(
+                    miniMessage.deserialize(
+                            "<gray>Funkce: <green>Join, Quit, First Join, Title, Sound"
+                    )
+            );
+
+            sender.sendMessage(
+                    miniMessage.deserialize(
+                            "<dark_gray>--------------------------------"
                     )
             );
 
@@ -44,6 +103,7 @@ public final class AdvancedWelcomeCommand implements CommandExecutor {
         if (args[0].equalsIgnoreCase("reload")) {
 
             if (!sender.hasPermission("advancedwelcome.reload")) {
+
                 sender.sendMessage(
                         miniMessage.deserialize(
                                 "<red>Na tento prikaz nemas opravneni."
@@ -57,17 +117,18 @@ public final class AdvancedWelcomeCommand implements CommandExecutor {
 
             sender.sendMessage(
                     miniMessage.deserialize(
-                            "<green>✔ AdvancedWelcome config byl uspesne reloadnut!"
+                            "<green>✔ Config byl uspesne reloadnut!"
                     )
             );
 
             plugin.getLogger().info(
-                    "Config byl reloadnut hracem/uzivatelem: " + sender.getName()
+                    "Config reloadnul: " + sender.getName()
             );
 
             return true;
         }
 
+        // Neznamy argument
         sender.sendMessage(
                 miniMessage.deserialize(
                         "<red>Neznamy prikaz. Pouzij <yellow>/advancedwelcome</yellow>."
