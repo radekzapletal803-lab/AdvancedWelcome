@@ -1,5 +1,6 @@
 package cz.radek.advancedwelcome;
 
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class AdvancedWelcome extends JavaPlugin {
@@ -7,26 +8,31 @@ public final class AdvancedWelcome extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        // Vytvoří config.yml, pokud ještě neexistuje
+        // Vytvori config.yml, pokud jeste neexistuje
         saveDefaultConfig();
 
-        // Zapnutí listeneru pro připojení a odpojení hráčů
+        // Registrace join/quit listeneru
         getServer().getPluginManager().registerEvents(
                 new PlayerConnectionListener(this),
                 this
         );
 
-        // Registrace příkazu /advancedwelcome
-        if (getCommand("advancedwelcome") != null) {
-            getCommand("advancedwelcome").setExecutor(
-                    new AdvancedWelcomeCommand(this)
+        // Registrace prikazu
+        PluginCommand command = getCommand("advancedwelcome");
+
+        if (command != null) {
+            command.setExecutor(new AdvancedWelcomeCommand(this));
+            command.setTabCompleter(new AdvancedWelcomeTabCompleter());
+        } else {
+            getLogger().severe(
+                    "Prikaz advancedwelcome nebyl nalezen v plugin.yml!"
             );
         }
 
-        getLogger().info("------------------------------");
-        getLogger().info("AdvancedWelcome v1.0.0");
+        getLogger().info("--------------------------------");
+        getLogger().info("AdvancedWelcome v" + getPluginMeta().getVersion());
         getLogger().info("Plugin byl uspesne zapnut!");
-        getLogger().info("------------------------------");
+        getLogger().info("--------------------------------");
     }
 
     @Override
