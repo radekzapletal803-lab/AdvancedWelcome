@@ -1,0 +1,17 @@
+name: AdvancedWelcome
+version: 1.0.0
+main: cz.radek.advancedwelcome.AdvancedWelcome
+api-version: '1.21'
+author: Radek
+description: Advanced welcome system for Paper servers.
+
+commands:
+  advancedwelcome:
+    description: Main command for AdvancedWelcome
+    usage: /advancedwelcome
+    aliases: [aw]
+
+permissions:
+  advancedwelcome.reload:
+    description: Allows reloading the plugin configuration
+    default: op
